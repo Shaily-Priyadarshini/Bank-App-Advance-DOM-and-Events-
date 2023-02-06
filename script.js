@@ -32,3 +32,22 @@ document.addEventListener('keydown', function (e) {
 });
 
 //smooth scrolling
+const btnScrollTo=document.querySelector('.btn--scroll-to');
+const section1=document.querySelector('#section--1');
+
+//old way
+// btnScrollTo.addEventListener('click',function(e){
+// //getting coordinates
+// const s1coords=section1.getBoundingClientRect();
+
+// window.scrollTo({
+//   left:s1coords.left+window.pageXOffset,
+//   top:s1coords.top+ window.pageYOffset,
+//   behavior:'smooth'
+
+// })});
+
+//Modern way
+btnScrollTo.addEventListener('click',function(e){
+  section1.scrollIntoView({behavior:'smooth'});
+})
