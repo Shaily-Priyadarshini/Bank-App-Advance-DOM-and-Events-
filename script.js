@@ -83,11 +83,33 @@ const handleHover=function(e){
 nav.addEventListener('mouseover',handleHover.bind(0.5));
 nav.addEventListener('mouseout',handleHover.bind(1));
 
+//Revealing Elements on scroll
+const sectionAll=document.querySelectorAll('.section');
+const revealSection=function(entries,observer){
+  const [entry]=entries;
+  console.log(entry)
+  if(!entry.isIntersecting) return
+  entry.target.classList.remove('section--hidden')
+}
+const sectionObserver=new IntersectionObserver(revealSection,{
+  root:null,
+  threshold:0.15,
+
+})
+
+sectionAll.forEach(function(section){
+sectionObserver.observe(section);
+section.classList.add('section--hidden')
+})
+
+
 //Intersection API
 const navHeight=nav.getBoundingClientRect().height;
 const headerCallback=function(entries){
   const [entry]=entries;
-  if(!entry.isIntersecting)nav.classList.add('sticky');
+  if(!entry.isIntersecting){
+    nav.classList.add('sticky');
+  }
   else nav.classList.remove('sticky');
 }
 const headerObv=new IntersectionObserver(headerCallback,{
