@@ -83,11 +83,32 @@ const handleHover=function(e){
 nav.addEventListener('mouseover',handleHover.bind(0.5));
 nav.addEventListener('mouseout',handleHover.bind(1));
 
+//Lazy Loads-> improve performance
+const imgTarget=document.querySelectorAll('img[data-src]');
+const imageCallback=function(entries,observer){
+  const [entry]=entries;
+  console.log(entry)
+  if(!entry.isIntersecting) return;
+  entry.target.src=entry.target.dataset.src;
+  entry.target.addEventListener('load',function(){
+    entry.target.classList.remove('lazy-img');
+  })
+
+};
+const imageObserver=new IntersectionObserver(imageCallback,{
+  root:null,
+  threshold:0,
+  rootMargin:'-200px',
+})
+imgTarget.forEach(image=>
+  imageObserver.observe(image));
+
+
+
 //Revealing Elements on scroll
 const sectionAll=document.querySelectorAll('.section');
 const revealSection=function(entries,observer){
   const [entry]=entries;
-  console.log(entry)
   if(!entry.isIntersecting) return
   entry.target.classList.remove('section--hidden')
 }
@@ -101,6 +122,7 @@ sectionAll.forEach(function(section){
 sectionObserver.observe(section);
 section.classList.add('section--hidden')
 })
+
 
 
 //Intersection API
