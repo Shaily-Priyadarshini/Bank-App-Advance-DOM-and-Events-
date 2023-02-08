@@ -84,6 +84,7 @@ nav.addEventListener('mouseover',handleHover.bind(0.5));
 nav.addEventListener('mouseout',handleHover.bind(1));
 
 //Intersection API
+const navHeight=nav.getBoundingClientRect().height;
 const headerCallback=function(entries){
   const [entry]=entries;
   if(!entry.isIntersecting)nav.classList.add('sticky');
